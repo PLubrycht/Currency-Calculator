@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css styles/main.css" />
+    <title>Currency Calculator</title>
+  </head>
+  <body>
+    <section class="gradient-section">
+      <canvas id="gradient-canvas"></canvas>
+      <div class="container">
+        <div class="content-section">
+          <div><p id="headline">Currency converter</p></div>
+          <div class="input-container">
+            <input type="number" id="enterValue" placeholder="enter value" />
+            <select name="" id="currenciesList">
+              <option value="" disabled selected>choose Your currency</option>
+            </select>
+          </div>
+          <button id="calculateButton">Convert</button>
+          <div><p id="calculatedValue"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <script src="JS files/main.js" defer></script>
+    <script src="JS files/gradients.js" defer></script>
+  </body>
+</html>
