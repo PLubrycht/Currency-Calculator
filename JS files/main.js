@@ -6,7 +6,7 @@ let calculatedValue = document.querySelector("#calculatedValue");
 
 const fetchingData = () => {
   btn.disabled = true;
-  fetch("http://api.nbp.pl/api/exchangerates/tables/a")
+  fetch("https://api.nbp.pl/api/exchangerates/tables/a")
     .then((response) => response.json())
     .then((data) => {
       if (!data[0].rates) {
