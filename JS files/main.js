@@ -11,8 +11,7 @@ const fetchingData = () => {
     .then((response) => response.json())
     .then((data) => {
       const rates = data[0].rates;
-      console.log(typeof rates);
-      console.log(rates);
+
       if (!rates) {
         alert(`Failed getting currency rates`);
         return;
