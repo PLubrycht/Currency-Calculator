@@ -6,19 +6,25 @@ let calculatedValue = document.querySelector("#calculatedValue");
 
 const fetchingData = () => {
   btn.disabled = true;
+
   fetch("https://api.nbp.pl/api/exchangerates/tables/a")
     .then((response) => response.json())
     .then((data) => {
-      if (!data[0].rates) {
+      const rates = data[0].rates;
+      console.log(typeof rates);
+      console.log(rates);
+      if (!rates) {
         alert(`Failed getting currency rates`);
         return;
       }
-      const neededCurrencies = [
-        data[0].rates[1],
-        data[0].rates[7],
-        data[0].rates[9],
-      ];
-      neededCurrencies.forEach((neededCurrency) => {
+
+      const ratesCodes = ["USD", "EUR", "CHF"];
+
+      const neededCurencies = rates.filter((rate) =>
+        ratesCodes.includes(rate.code)
+      );
+
+      neededCurencies.forEach((neededCurrency) => {
         const option = document.createElement("option");
         option.textContent = neededCurrency.code;
         option.value = neededCurrency.mid;
@@ -37,4 +43,5 @@ const fetchingData = () => {
       btn.disabled = false;
     });
 };
+
 fetchingData();
