@@ -1,46 +1,44 @@
-const btn = document.querySelector("#calculateButton");
+const form = document.querySelector("#currency-form");
 const input = document.querySelector("#enterValue");
 const listOfCurrencies = document.querySelector("#currenciesList");
-let currencyRate = {};
-let calculatedValue = document.querySelector("#calculatedValue");
+const calculatedValue = document.querySelector("#calculatedValue");
+const loader = document.querySelector(".loader");
 
-const fetchingData = () => {
-  btn.disabled = true;
+const fetchingData = (event) => {
+  event.preventDefault();
 
+  const selectedCurrency = listOfCurrencies.value;
+
+  if (!selectedCurrency) {
+    alert("Please select a Currency.");
+    return;
+  }
+  loader.style.display = "inline-block";
   fetch("https://api.nbp.pl/api/exchangerates/tables/a")
     .then((response) => response.json())
     .then((data) => {
-      const rates = data[0].rates;
+      const rates = data?.[0]?.rates;
 
       if (!rates) {
         alert(`Failed getting currency rates`);
         return;
       }
 
-      const ratesCodes = ["USD", "EUR", "CHF"];
+      const selectedRate = rates.find((rate) => rate.code === selectedCurrency);
 
-      const neededCurencies = rates.filter((rate) =>
-        ratesCodes.includes(rate.code)
-      );
+      if (!selectedRate) {
+        alert("Failed to find selected currency.");
+        return;
+      }
 
-      neededCurencies.forEach((neededCurrency) => {
-        const option = document.createElement("option");
-        option.textContent = neededCurrency.code;
-        option.value = neededCurrency.mid;
-        listOfCurrencies.appendChild(option);
-        const calculation = () => {
-          calculatedValue.textContent = calculatedValue.value;
-          calculatedValue.value =
-            Number(input.value * listOfCurrencies.value).toFixed(2) + " PLN";
-        };
-
-        btn.addEventListener("click", calculation);
-      });
+      const rate = selectedRate.mid;
+      const result = (Number(input.value) * rate).toFixed(2) + " PLN";
+      calculatedValue.textContent = result;
     })
-    .catch((e) => alert(`Error, cannot comunicate with server`))
+    .catch((e) => alert("Error, cannot communicate with server."))
     .finally(() => {
-      btn.disabled = false;
+      loader.style.display = "none";
     });
 };
 
-fetchingData();
+form.addEventListener("submit", fetchingData);

@@ -16,17 +16,38 @@
     <section class="gradient-section">
       <canvas id="gradient-canvas"></canvas>
       <div class="container">
-        <div class="content-section">
-          <div><p id="headline">Currency converter</p></div>
-          <div class="input-container">
-            <input type="number" id="enterValue" placeholder="enter value" />
-            <select name="" id="currenciesList">
-              <option value="" disabled selected>choose Your currency</option>
-            </select>
-          </div>
-          <button id="calculateButton">Convert</button>
-          <div><p id="calculatedValue"></p></div>
-        </div>
+        <main class="content-section">
+          <header class="headline">Currency converter</header>
+          <form id="currency-form" class="currency-form">
+            <div class="input-container">
+              <input
+                type="number"
+                id="enterValue"
+                class="enterValue"
+                placeholder="enter value"
+                required
+                min="0.01"
+                step="0.01"
+              />
+              <select
+                name=""
+                id="currenciesList"
+                class="currenciesList"
+                required
+              >
+                <option value="" disabled selected>choose Your currency</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="CHF">CHF</option>
+              </select>
+            </div>
+            <button type="submit" id="calculateButton" class="calculateButton">
+              Convert
+            </button>
+          </form>
+          <span class="loader"></span>
+          <div><p id="calculatedValue" class="calculatedValue"></p></div>
+        </main>
       </div>
     </section>
 
